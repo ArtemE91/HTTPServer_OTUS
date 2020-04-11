@@ -1,0 +1,14 @@
+PROTOCOL = "HTTP/1.1"
+QUEUE_SIZE = 5
+CHUNK_SIZE = 8192
+
+OK = 200
+FORBIDDEN = 403
+NOT_FOUND = 404
+METHOD_NOT_ALLOWED = 405
+ERRORS = {
+    OK: "OK",
+    FORBIDDEN: "Forbidden",
+    NOT_FOUND: "Not Found",
+    METHOD_NOT_ALLOWED: "Method Not Allowed",
+}
