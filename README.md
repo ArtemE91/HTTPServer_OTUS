@@ -23,16 +23,16 @@ Python 3+ version
 * host (default=localhost): __-hs__, __--host__
 * port (default=9090): __-p__, __--port__
 * workers (default=5): __-w__, __--workers__
-* DIRECTORY_ROOT (default=doc_root): __-d__, __--dir_root__
+* DOCUMENTS_ROOT (default=doc_root): __-d__, __--dir_root__
 
 ### Запуск сервера
 * __%path_to_modile_dir%__ - путь до директории проекта
-* __%path_to_module_dir%/DIRECTORY_ROOT/__ - директория файлов сервера
+* __%path_to_module_dir%/DOCUMENTS_ROOT/__ - директория файлов сервера
 * __%amount_workers%__ - количество work'ов
 
 ```
 cd %path_to_modile_dir%
-python3 httpd.py -hs %host% -p %port% -w %amount_workers% -d %DIRECTORY_ROOT%
+python3 httpd.py -hs %host% -p %port% -w %amount_workers% -d %DOCUMENTS_ROOT%
 ```
 ### Нагрузочное тестирование
 ```
