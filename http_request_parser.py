@@ -34,7 +34,6 @@ class HTTPRequestParser:
         uri_path = parse.unquote(uri)
         uri_path = uri_path.partition("?")[0]
         uri_path = os.path.join(doc_root, uri_path.lstrip('/'))
-        uri_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), uri_path)
 
         if '../' in uri_path:
             return FORBIDDEN, uri
@@ -44,15 +43,13 @@ class HTTPRequestParser:
             if not os.path.isfile(uri_path):
                 return NOT_FOUND, uri_path
 
-        print('1. UriPath = {}'.format(uri_path))
         if not os.path.isfile(uri_path):
-            print('2. UriPath = {}'.format(uri_path))
             return NOT_FOUND, uri_path
 
         return OK, uri_path
 
-    @classmethod
-    def get_name_file_error(cls, code):
+    @staticmethod
+    def get_name_file_error(code):
         name_file_error = '{}.html'.format(code)
         dir_path = os.path.dirname(os.path.abspath(__file__))
         dir_path = os.path.abspath(os.path.join(dir_path, "errors_html"))

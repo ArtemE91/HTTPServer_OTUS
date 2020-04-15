@@ -24,10 +24,10 @@ Python 3+ version
 * port (default=9090): __-p__, __--port__
 * workers (default=5): __-w__, __--workers__
 * DOCUMENTS_ROOT (default=doc_root): __-d__, __--dir_root__
+* log (default=log.log): __-l__, __log__
 
 ### Запуск сервера
 * __%path_to_modile_dir%__ - путь до директории проекта
-* __%path_to_module_dir%/DOCUMENTS_ROOT/__ - директория файлов сервера
 * __%amount_workers%__ - количество work'ов
 
 ```

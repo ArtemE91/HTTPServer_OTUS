@@ -3,7 +3,7 @@ import logging
 import multiprocessing
 import argparse
 
-from config import QUEUE_SIZE, CHUNK_SIZE
+from config import QUEUE_SIZE, CHUNK_SIZE, MAX_LENGTH_REQUEST
 from generate_response import GenerateResponse
 from http_request_parser import HTTPRequestParser
 
@@ -73,11 +73,9 @@ class HTTPServer:
             while True:
                 chunk = client_socket.recv(CHUNK_SIZE)
                 data += chunk.decode()
-                if "\r\n\r\n" in data:
+                if "\r\n\r\n" in data or not chunk or len(data) > MAX_LENGTH_REQUEST:
                     break
-                if not chunk:
-                    break
-        except ConnectionError:
+        except:
             logging.exception("receive exception from {}".format(self.host))
 
         return data
@@ -90,10 +88,10 @@ class HTTPServer:
             return
 
 
-def set_logging(logging_level=logging.INFO):
+def set_logging(logging_level=logging.INFO, filename=''):
     logging.basicConfig(
         level=logging_level,
-        filename='log.log',
+        filename=filename,
         format='%(asctime)s %(levelname)s '
                '{%(pathname)s:%(lineno)d}: %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
@@ -119,13 +117,17 @@ def parse_args():
         '-d', '--dir_root', type=str, default='doc_root',
         help='DIRECTORY_ROOT with site files, default: doc_root'
     )
+    parser.add_argument(
+        '-l', '--log', type=str, default='log.log',
+        help='path to log file, default: "log.log"'
+    )
 
     return parser.parse_args()
 
 
 if __name__ == '__main__':
-    set_logging(logging.INFO)
     args = parse_args()
+    set_logging(logging.INFO, args.log)
     http_server = HTTPServer(host=args.host, port=args.port, doc_root=args.dir_root)
     http_server.start()
     workers = []
